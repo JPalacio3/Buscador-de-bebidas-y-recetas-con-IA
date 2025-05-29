@@ -8,7 +8,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<IndexPage />}></Route>
+          <Route path="/" element={<IndexPage />} index></Route>
           <Route path="/favoritos" element={<FavoritesPage />}></Route>
         </Route>
       </Routes>

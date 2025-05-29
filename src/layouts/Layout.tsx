@@ -4,9 +4,13 @@ import Header from "../components/Header";
 export default function Layout() {
   return (
     <>
+      {/* Este componente se renderiza en todas las páginas de la aplicación. */}
       <Header />
 
-      <Outlet />
+      {/* Este snippet es la parte dinámica de las páginas que renderiza el contenido de las rutas hijas. */}
+      <main className="container mx-auto py-16">
+        <Outlet />
+      </main>
     </>
   );
 }
