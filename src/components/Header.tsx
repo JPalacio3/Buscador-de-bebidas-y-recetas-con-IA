@@ -1,6 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { use, useMemo } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import Form from "./Form";
 
 export default function Header() {
+  const { pathname } = useLocation();
+
+  const isHome = useMemo(() => pathname === "/", [pathname]);
+
   return (
     <header className="bg-slate-800">
       <div className="mx-auto container px-5 py-16">
@@ -34,6 +40,9 @@ export default function Header() {
             </NavLink>
           </nav>
         </div>
+
+        {/* Renderiza el formulario solo si estamos en la página de inicio */}
+        {isHome && <Form />}
       </div>
     </header>
   );
