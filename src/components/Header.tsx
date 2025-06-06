@@ -11,7 +11,7 @@ export default function Header() {
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]);
+  }, []);
 
   return (
     <header
