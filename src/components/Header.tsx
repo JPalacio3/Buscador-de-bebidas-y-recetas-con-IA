@@ -94,7 +94,12 @@ export default function Header() {
               >
                 <option disabled>-- Seleccione --</option>
                 {categories.drinks.map((category) => (
-                  <option value="">{category.strCategory}</option>
+                  <option
+                    value={category.strCategory}
+                    key={category.strCategory}
+                  >
+                    {category.strCategory}
+                  </option>
                 ))}
               </select>
             </div>
