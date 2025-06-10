@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useAppStore } from "../stores/useAppStore";
 
@@ -7,6 +7,12 @@ export default function Header() {
     ingredient: "",
     category: "",
   });
+
+  const { pathname } = useLocation();
+  const isHome = useMemo(() => pathname === "/", [pathname]);
+  const fetchCategories = useAppStore((state) => state.fetchCategories);
+  const categories = useAppStore((state) => state.categories);
+  const searchRecipes = useAppStore((state) => state.searchRecipes);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -17,12 +23,18 @@ export default function Header() {
     });
   };
 
-  const { pathname } = useLocation();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const isHome = useMemo(() => pathname === "/", [pathname]);
+    // Validar que todos los campos estén completos
+    if (Object.values(searchFilters).includes("")) {
+      console.error("Por favor, completa todos los campos.");
+      return;
+    }
 
-  const fetchCategories = useAppStore((state) => state.fetchCategories);
-  const categories = useAppStore((state) => state.categories);
+    // Consultar las recetas
+    searchRecipes(searchFilters);
+  };
 
   useEffect(() => {
     fetchCategories();
@@ -71,8 +83,9 @@ export default function Header() {
         {isHome && (
           <form
             action=""
-            className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow-lg
+            className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg
             space-y-6"
+            onSubmit={(e) => handleSubmit(e)}
           >
             <div className="space-y-4">
               <label
@@ -106,9 +119,9 @@ export default function Header() {
                 id="category"
                 name="category"
                 className="p-3 w-full rounded-lg focus:outline-none"
-                defaultValue="-- Seleccione --"
                 onChange={handleChange}
-                value={searchFilters.category}
+                // value={searchFilters.category}
+                defaultValue="-- Seleccione --"
               >
                 <option disabled>-- Seleccione --</option>
                 {categories.drinks.map((category) => (
@@ -125,8 +138,7 @@ export default function Header() {
               type="submit"
               value={"Buscar Recetas"}
               className="cursor-pointer bg-orange-800 hover:bg-orange-700 text-white
-              uppercase
-            font-extra-bold w-full p-2 rounded-lg transition-colors duration-300
+              uppercase font-extra-bold w-full p-2 rounded-lg transition-colors duration-300
             hover:shadow-lg hover:shadow-orange-500/50"
             />
           </form>

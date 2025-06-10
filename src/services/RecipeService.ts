@@ -6,8 +6,6 @@ export async function getCategories() {
   const { data } = await axios.get(url);
   const result = CategoriesAPIResponseSchema.safeParse(data);
 
-  console.log("getCategories result", result);
-
   if (result.success) {
     return result.data;
   }
