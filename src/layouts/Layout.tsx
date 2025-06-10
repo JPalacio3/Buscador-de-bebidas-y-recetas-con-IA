@@ -8,7 +8,7 @@ export default function Layout() {
       <Header />
 
       {/* Este snippet es la parte dinámica de las páginas que renderiza el contenido de las rutas hijas. */}
-      <main className="container mx-auto py-16">
+      <main className="container mx-auto py-8">
         <Outlet />
       </main>
     </>
