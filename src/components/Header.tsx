@@ -1,8 +1,22 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function Header() {
+  const [searchFilters, setSearchFilters] = useState({
+    ingredient: "",
+    category: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setSearchFilters({
+      ...searchFilters,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const { pathname } = useLocation();
 
   const isHome = useMemo(() => pathname === "/", [pathname]);
@@ -74,12 +88,14 @@ export default function Header() {
                 className="p-3 w-full rounded-lg focus:outline-none"
                 placeholder="Busca recetas por nombre o ingredientes. Ej: Vodka, Tequila,
                 Café, etc."
+                onChange={handleChange}
+                value={searchFilters.ingredient}
               />
             </div>
 
             <div className="space-y-4">
               <label
-                htmlFor="categories"
+                htmlFor="category"
                 className="block text-white uppercase font-extrabold text-lg"
               >
                 {" "}
@@ -87,10 +103,12 @@ export default function Header() {
               </label>
 
               <select
-                id="categories"
-                name="categories"
+                id="category"
+                name="category"
                 className="p-3 w-full rounded-lg focus:outline-none"
                 defaultValue="-- Seleccione --"
+                onChange={handleChange}
+                value={searchFilters.category}
               >
                 <option disabled>-- Seleccione --</option>
                 {categories.drinks.map((category) => (
