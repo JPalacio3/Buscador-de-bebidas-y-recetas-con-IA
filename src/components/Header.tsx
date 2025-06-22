@@ -34,6 +34,8 @@ export default function Header() {
 
     // Consultar las recetas
     searchRecipes(searchFilters);
+    // Hacer scroll suave hacia abajo para mostrar los resultados
+    window.scrollTo({ top: 720, behavior: "smooth" });
   };
 
   useEffect(() => {
