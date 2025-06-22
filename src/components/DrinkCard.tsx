@@ -9,7 +9,7 @@ export default function DrinkCard({ drink }: DrinkCardProps) {
   const selectRecipe = useAppStore((state) => state.selectRecipe);
 
   return (
-    <div className="border shadow-lg rounded-xl">
+    <div className="border shadow-lg rounded-xl ">
       <div className="rounded-t-xl overflow-hidden">
         <img
           src={drink.strDrinkThumb}
