@@ -13,6 +13,7 @@ export default function Modal() {
   const modal = useAppStore((state) => state.modal);
   const closeModal = useAppStore((state) => state.closeModal);
   const selectedRecipe = useAppStore((state) => state.selectedRecipe);
+  const handleClickFavorite = useAppStore((state) => state.handleClickFavorite);
 
   const renderIngredients = () => {
     const ingredients: JSX.Element[] = [];
@@ -94,14 +95,27 @@ export default function Modal() {
                   <p className="text-lg bg-white/30 p-2 rounded-xl shadow-sm">
                     {selectedRecipe.strInstructions}
                   </p>
-                  <p
-                    className="text-xl text-center p-1 bg-orange-400 mt-4 rounded-lg
-                   shadow-lg mx-auto md:w-1/4 text-white font-extrabold uppercase
-                  hover:bg-orange-500 transition-colors cursor-pointer"
-                    onClick={closeModal}
-                  >
-                    Cerrar
-                  </p>
+                  <div className="md:flex justify-between">
+                    <button
+                      type="button"
+                      className="text-xl text-center p-2 bg-gray-500 mt-4 rounded-lg
+                        shadow-lg mx-auto w-full md:w-1/4 text-white font-extrabold uppercase
+                      hover:bg-gray-600 transition-colors"
+                      onClick={closeModal}
+                    >
+                      Cerrar
+                    </button>
+
+                    <button
+                      type="button"
+                      className="text-xl text-center p-2 bg-orange-400 mt-4 rounded-lg
+                        shadow-lg mx-auto w-full md:w-1/2 text-white font-extrabold uppercase
+                      hover:bg-orange-500 transition-colors cursor-pointer"
+                      onClick={() => handleClickFavorite(selectedRecipe)}
+                    >
+                      Agregar a Favoritos
+                    </button>
+                  </div>
                 </DialogPanel>
               </TransitionChild>
             </div>
