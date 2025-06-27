@@ -1,9 +1,11 @@
 import type { StateCreator } from "zustand";
+
 import {
   getCategories,
   getRecipeById,
   getRecipes,
 } from "../services/RecipeService";
+
 import type {
   Categories,
   Drink,
