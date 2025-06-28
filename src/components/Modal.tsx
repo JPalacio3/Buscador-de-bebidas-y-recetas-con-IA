@@ -5,7 +5,7 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, type JSX } from "react";
 import { useAppStore } from "../stores/useAppStore";
 import type { Recipe } from "../types";
 
@@ -14,6 +14,7 @@ export default function Modal() {
   const closeModal = useAppStore((state) => state.closeModal);
   const selectedRecipe = useAppStore((state) => state.selectedRecipe);
   const handleClickFavorite = useAppStore((state) => state.handleClickFavorite);
+  const favoriteExists = useAppStore((state) => state.favoriteExists);
 
   const renderIngredients = () => {
     const ingredients: JSX.Element[] = [];
@@ -100,7 +101,7 @@ export default function Modal() {
                       type="button"
                       className="text-xl text-center p-2 bg-gray-500 mt-4 rounded-lg
                         shadow-lg mx-auto w-full md:w-1/4 text-white font-extrabold uppercase
-                      hover:bg-gray-600 transition-colors"
+                      hover:bg-gray-600 transition-colors duration-300"
                       onClick={closeModal}
                     >
                       Cerrar
@@ -110,10 +111,15 @@ export default function Modal() {
                       type="button"
                       className="text-xl text-center p-2 bg-orange-400 mt-4 rounded-lg
                         shadow-lg mx-auto w-full md:w-1/2 text-white font-extrabold uppercase
-                      hover:bg-orange-500 transition-colors cursor-pointer"
-                      onClick={() => handleClickFavorite(selectedRecipe)}
+                      hover:bg-orange-500 transition-colors duration-300 cursor-pointer"
+                      onClick={() => {
+                        handleClickFavorite(selectedRecipe);
+                        closeModal();
+                      }}
                     >
-                      Agregar a Favoritos
+                      {favoriteExists(selectedRecipe.idDrink)
+                        ? "Eliminar de Favoritos"
+                        : "Agregar a Favoritos"}
                     </button>
                   </div>
                 </DialogPanel>
