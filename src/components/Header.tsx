@@ -59,7 +59,7 @@ export default function Header() {
   // Detectar scroll para fijar el nav
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY + navHeight >= 150) {
         setIsNavFixed(true);
       } else {
         setIsNavFixed(false);
@@ -67,7 +67,7 @@ export default function Header() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  });
 
   return (
     <header
@@ -93,7 +93,7 @@ export default function Header() {
               (isNavFixed
                 ? "fixed top-5 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 "
                 : "md:w-1/4") +
-              " flex flex-row justify-around gap-4 container transition-all duration-500 ease-linear"
+              " flex flex-row justify-around  min-w-32 px-20  gap-20 transition-opacity md:mx-10"
             }
             style={isNavFixed ? { borderRadius: "20px" } : {}}
           >
@@ -160,7 +160,7 @@ export default function Header() {
               <select
                 id="category"
                 name="category"
-                className="p-3 w-full rounded-lg focus:outline-none"
+                className="p-3 w-full rounded-lg focus:outline-true"
                 onChange={handleChange}
                 // value={searchFilters.category}
                 defaultValue="-- Seleccione --"
