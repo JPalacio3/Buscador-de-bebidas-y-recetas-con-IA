@@ -44,7 +44,7 @@ export default function Header() {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  });
 
   return (
     <header
