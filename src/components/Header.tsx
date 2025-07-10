@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useAppStore } from "../stores/useAppStore";
 
@@ -7,6 +7,9 @@ export default function Header() {
     ingredient: "",
     category: "",
   });
+  const [isNavFixed, setIsNavFixed] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const [navHeight, setNavHeight] = useState(0);
 
   const { pathname } = useLocation();
   const isHome = useMemo(() => pathname === "/", [pathname]);
@@ -44,7 +47,27 @@ export default function Header() {
 
   useEffect(() => {
     fetchCategories();
-  });
+  }, [fetchCategories]);
+
+  // Medir la altura real del nav
+  useEffect(() => {
+    if (navRef.current) {
+      setNavHeight(navRef.current.offsetHeight);
+    }
+  }, [isNavFixed, categories]);
+
+  // Detectar scroll para fijar el nav
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsNavFixed(true);
+      } else {
+        setIsNavFixed(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
@@ -59,8 +82,21 @@ export default function Header() {
           <div>
             <img className="w-32 " src="/logo.svg" alt="logotipo" />
           </div>
+
           {/* Navegation */}
-          <nav className="flex flex-col items-center md:flex-row gap-4">
+          {isNavFixed && (
+            <div style={{ height: navHeight }} className="w-full" />
+          )}
+          <nav
+            ref={navRef}
+            className={
+              (isNavFixed
+                ? "fixed top-5 left-1/2 -translate-x-1/2 max-w-xl w-full z-[9999] p-2 bg-slate-800/60 backdrop-blur "
+                : " md:w-1/4 w-full ") +
+              " flex flex-row justify-around gap-4 container"
+            }
+            style={isNavFixed ? { borderRadius: "20px" } : {}}
+          >
             <NavLink
               to="/"
               className={({ isActive }) =>
