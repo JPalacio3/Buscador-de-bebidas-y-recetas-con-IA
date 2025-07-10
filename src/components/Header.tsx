@@ -13,6 +13,7 @@ export default function Header() {
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories);
   const searchRecipes = useAppStore((state) => state.searchRecipes);
+  const showNotification = useAppStore((state) => state.showNotification);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -28,7 +29,10 @@ export default function Header() {
 
     // Validar que todos los campos estén completos
     if (Object.values(searchFilters).includes("")) {
-      console.error("Por favor, completa todos los campos.");
+      showNotification({
+        text: "Todos los campos son obligatorios.",
+        error: true,
+      });
       return;
     }
 

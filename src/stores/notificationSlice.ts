@@ -18,7 +18,7 @@ export const createNotificationSlice: StateCreator<
   [],
   [],
   NotificationSliceType
-> = (set) => ({
+> = (set, get) => ({
   notification: {
     text: "",
     error: false,
@@ -33,6 +33,9 @@ export const createNotificationSlice: StateCreator<
         show: true,
       },
     });
+    setTimeout(() => {
+      get().hideNotification();
+    }, 2000);
   },
   hideNotification: () => {
     set({
