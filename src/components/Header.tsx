@@ -91,7 +91,7 @@ export default function Header() {
             ref={navRef}
             className={
               (isNavFixed
-                ? "fixed top-5 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2"
+                ? "fixed top-5 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 "
                 : "md:w-1/4") +
               " flex flex-row justify-around gap-4 container transition-all duration-500 ease-linear"
             }
