@@ -10,7 +10,7 @@ export default function Layout() {
 
   useEffect(() => {
     loadFromStorage();
-  }, []);
+  });
   return (
     <>
       {/* Este componente se renderiza en todas las páginas de la aplicación. */}
