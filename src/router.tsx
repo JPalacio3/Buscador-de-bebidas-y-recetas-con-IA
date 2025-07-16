@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Layout from "./layouts/Layout";
 import Spinner from "../public/spiner/Spinner";
+import GenerateAI from "./views/GenerateAI";
 
 const FavoritesPage = lazy(() => import("./views/FavoritesPage"));
 const IndexPage = lazy(() => import("./views/IndexPage"));
@@ -27,6 +28,16 @@ export default function AppRouter() {
             element={
               <Suspense fallback={<Spinner />}>
                 <FavoritesPage />
+              </Suspense>
+            }
+          ></Route>
+
+          {/* Ruta que permite la generación de recetas con IA */}
+          <Route
+            path="/generate"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <GenerateAI />
               </Suspense>
             }
           ></Route>

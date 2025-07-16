@@ -92,7 +92,7 @@ export default function Header() {
             className={
               (isNavFixed
                 ? "fixed top-6 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 gap-10 "
-                : "md:w-1/4 ") +
+                : "md:w-2/4 ") +
               "flex flex-row justify-center min-w-32 px-20 gap-20 transition-opacity md:mx-10 "
             }
             style={isNavFixed ? { borderRadius: "20px" } : {}}
@@ -117,6 +117,18 @@ export default function Header() {
               }
             >
               Favoritos
+            </NavLink>
+
+            {/* Ruta para redireccionar a la página de generador de IA */}
+            <NavLink
+              to="/generate"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 uppercase font-bold mb-0 lg:mb-0"
+                  : "text-white uppercase font-bold md:mb-0"
+              }
+            >
+              Generar con IA
             </NavLink>
           </nav>
         </div>
