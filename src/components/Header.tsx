@@ -91,9 +91,9 @@ export default function Header() {
             ref={navRef}
             className={
               (isNavFixed
-                ? "fixed top-6 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 mx-auto"
-                : "md:w-1/4") +
-              " flex flex-row justify-around  min-w-32 px-20  gap-20 transition-opacity md:mx-10"
+                ? "fixed top-6 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 gap-10 "
+                : "md:w-1/4 ") +
+              "flex flex-row justify-center min-w-32 px-20 gap-20 transition-opacity md:mx-10 "
             }
             style={isNavFixed ? { borderRadius: "20px" } : {}}
           >
@@ -101,8 +101,8 @@ export default function Header() {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 uppercase font-bold md:mb-0"
-                  : "text-white uppercase font-bold md:mb-0"
+                  ? "text-orange-500 uppercase font-bold md:mb-0 "
+                  : "text-white uppercase font-bold md:mb-0 "
               }
             >
               Inicio
@@ -125,8 +125,7 @@ export default function Header() {
         {isHome && (
           <form
             action=""
-            className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg
-            space-y-6"
+            className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg space-y-6"
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="space-y-4">
