@@ -20,8 +20,6 @@ export const createAISlice: StateCreator<AISlice, [], [], AISlice> = (set) => ({
         recipe: state.recipe + textPart,
       }));
     }
-    set({
-      isGenerating: false,
-    });
+    set({isGenerating: false});
   },
 });
