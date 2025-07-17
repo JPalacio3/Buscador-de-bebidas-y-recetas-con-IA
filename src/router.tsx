@@ -1,48 +1,56 @@
+
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 import Layout from "./layouts/Layout";
 import Spinner from "../public/spiner/Spinner";
-import GenerateAI from "./views/GenerateAI";
+import PageTransition from "./layouts/PageTransition"; // 1. Importa el nuevo componente
 
-const FavoritesPage = lazy(() => import("./views/FavoritesPage"));
 const IndexPage = lazy(() => import("./views/IndexPage"));
+const FavoritesPage = lazy(() => import("./views/FavoritesPage"));
+const GenerateAI = lazy(() => import("./views/GenerateAI"));
 
 export default function AppRouter() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route element={<Layout />}>
+          {/* 2. Envuelve cada página con PageTransition */}
           <Route
             path="/"
             element={
-              <Suspense fallback={<Spinner />}>
-                <IndexPage />
-              </Suspense>
+              <PageTransition>
+                <Suspense fallback={<Spinner />}>
+                  <IndexPage />
+                </Suspense>
+              </PageTransition>
             }
-            index
-          ></Route>
-
+          />
           <Route
             path="/favoritos"
             element={
-              <Suspense fallback={<Spinner />}>
-                <FavoritesPage />
-              </Suspense>
+              <PageTransition>
+                <Suspense fallback={<Spinner />}>
+                  <FavoritesPage />
+                </Suspense>
+              </PageTransition>
             }
-          ></Route>
-
-          {/* Ruta que permite la generación de recetas con IA */}
+          />
           <Route
             path="/generate"
             element={
-              <Suspense fallback={<Spinner />}>
-                <GenerateAI />
-              </Suspense>
+              <PageTransition>
+                <Suspense fallback={<Spinner />}>
+                  <GenerateAI />
+                </Suspense>
+              </PageTransition>
             }
-          ></Route>
+          />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </AnimatePresence>
   );
 }

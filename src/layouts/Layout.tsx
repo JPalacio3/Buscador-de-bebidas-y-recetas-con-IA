@@ -35,7 +35,7 @@ export default function Layout() {
   });
 
   return (
-    <div {...handlers} className="min-h-screen bg-gray-100">
+    <div {...handlers} className="min-h-screen bg-gray-100 ">
       <Header />
 
       <main className="container mx-auto py-8">
