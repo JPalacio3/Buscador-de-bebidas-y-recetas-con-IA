@@ -1,3 +1,4 @@
+import Spinner from "../../public/spiner/Spinner";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
@@ -66,9 +67,9 @@ export default function GenerateAI() {
         </form>
         {/* Inhabilitar el botón de generar respuesta mientras se genera una */}
         {isGenerating && (
-          <p className="text-gray-300 animate-pulse m-5 p-0">
-            Generando respuesta...
-          </p>
+          <div className="text-gray-300 animate-pulse m-5 p-0">
+            <Spinner />
+          </div>
         )}
 
         {/* Mostrando los resultados de la respuesta de la IA */}

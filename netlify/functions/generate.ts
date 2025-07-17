@@ -1,4 +1,3 @@
-
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
 import type { Handler } from "@netlify/functions";
@@ -17,7 +16,7 @@ export const handler: Handler = async (event) => {
       //... tu system prompt ...
     });
 
-    return new Response(result.toAIStream(), {
+    return new Response(result.toDataStream(), {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   } catch (error) {

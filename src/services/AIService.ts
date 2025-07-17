@@ -1,16 +1,16 @@
-// src/services/AIService.ts (CORREGIDO)
+import { streamText } from "ai";
+import { openrouter } from "../lib/ai";
+
 export default {
   async generateRecipe(prompt: string) {
-    // La llamada ahora es a tu propia función segura
-    const response = await fetch("/.netlify/functions/generate", {
-      method: "POST",
-      body: JSON.stringify({ prompt }),
+    const result = streamText({
+      model: openrouter("meta-llama/llama-3.3-70b-instruct:free"),
+      // model: openrouter('google/gemini-2.5-pro-exp-03-25:free'),
+      // model: openrouter('deepseek/deepseek-chat-v3-0324:free'),
+      // model: openrouter('google/gemma-3-4b-it:free'),
+      prompt,
     });
 
-    if (!response.ok || !response.body) {
-      throw new Error("La petición a la función de Netlify falló.");
-    }
-
-    return response.body; // Devuelve el stream
+    return result.textStream;
   },
 };
