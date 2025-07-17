@@ -4,6 +4,7 @@ export default function GenerateAI() {
   const Notification = useAppStore((state) => state.showNotification);
   const generateRecipe = useAppStore((state) => state.generateRecipe);
   const recipe = useAppStore((state) => state.recipe);
+  const isGenerating = useAppStore((state) => state.isGenerating);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +43,9 @@ export default function GenerateAI() {
             <button
               type="submit"
               aria-label="Enviar"
-              className="cursor-pointer p-2 bg-slate-800 rounded-lg"
+              className={`cursor-pointer p-2 bg-slate-800 rounded-lg
+              ${isGenerating ? "cursor-not-allowed opacity-50" : ""}`}
+              disabled={isGenerating}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +64,15 @@ export default function GenerateAI() {
             </button>
           </div>
         </form>
+        {/* Inhabilitar el botón de generar respuesta mientras se genera una */}
+        {isGenerating && (
+          <p className="text-gray-300 animate-pulse m-5 p-0">
+            Generando respuesta...
+          </p>
+        )}
+
         {/* Mostrando los resultados de la respuesta de la IA */}
-        <div className="py-10 whitespace-pre-wrap container p-4 ">{recipe}</div>
+        <div className=" whitespace-pre-wrap container p-4 ">{recipe}</div>
       </div>
     </>
   );
