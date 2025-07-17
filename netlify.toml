@@ -1,0 +1,14 @@
+# netlify.toml (NUEVO ARCHIVO)
+
+[build]
+  # Comando para construir tu proyecto Vite
+  command = "npm run build"
+  # Directorio donde Vite coloca los archivos construidos
+  publish = "dist"
+  # Directorio donde vivirán tus funciones de backend
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
