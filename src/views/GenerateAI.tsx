@@ -62,7 +62,7 @@ export default function GenerateAI() {
           </div>
         </form>
         {/* Mostrando los resultados de la respuesta de la IA */}
-        <div className="py-10 whitespace-pre-wrap container p-4">{recipe}</div>
+        <div className="py-10 whitespace-pre-wrap container p-4 ">{recipe}</div>
       </div>
     </>
   );
