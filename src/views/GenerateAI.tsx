@@ -2,24 +2,25 @@ import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
   const Notification = useAppStore((state) => state.showNotification);
+  const generateRecipe = useAppStore((state) => state.generateRecipe);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Generando receta con IA...");
 
     const form = new FormData(e.currentTarget);
     const prompt = form.get("prompt") as string;
 
-    if (prompt.trim() === "") {
+    if (prompt.trim() === "" || prompt.trim().length < 10) {
       // Notificación en caso de que el campo esté vacío
       Notification({
-        text: "La bubsqueda no puede estar vacía.",
+        text: "La busqueda no puede estar vacía o ser demasiado corta.",
         error: true,
       });
       return;
     }
 
     // En caso de que la búsqueda sea exitosa se realiza la busqueda del prompt y se renderiza el componente
+    await generateRecipe(prompt);
   };
 
   return (

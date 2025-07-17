@@ -95,7 +95,7 @@ export default function Header() {
             className={
               (isNavFixed
                 ? "fixed top-6 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 gap-10 "
-                : "md:w-3/4 w-full ") +
+                : "md:w-1/4 w-full ") +
               "flex flex-row justify-center min-w-64 px-10 gap-12 transition-opacity md:mx-10 "
             }
             style={isNavFixed ? { borderRadius: "20px" } : {}}
