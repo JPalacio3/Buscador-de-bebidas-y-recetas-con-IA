@@ -9,7 +9,7 @@ export default function FavoritesPage() {
 
   return (
     <>
-      <h1 className="text-6xl font-extrabold">FAVORITOS</h1>
+      <h1 className="text-6xl font-extrabold text-center">FAVORITOS</h1>
       {hasfavorites ? (
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10">
           {favorites.map((favorite) => (
