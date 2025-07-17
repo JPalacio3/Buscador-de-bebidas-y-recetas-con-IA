@@ -1,22 +1,16 @@
-import { streamText } from "ai";
-import { openrouter } from "../lib/ai";
-
+// src/services/AIService.ts (CORREGIDO)
 export default {
   async generateRecipe(prompt: string) {
-    const result = streamText({
-      model: openrouter("deepseek/deepseek-r1:free"),
-      prompt: prompt,
-      system:
-        "Eres un bartender experto en la creación de bebidas" +
-        "Sueles usar un lenguaje jovial y alegre cuando hablas" +
-        "Eres práctico y sabes dar instrucciones claras" +
-        "Tu experiencia en el campo es de 50 años, eres un maestro experto en el tema" +
-        "También les sabes decir a las personas que su bebida puede ser un algo inapropiada si es que percibes que tiene niveles de alcohol muy altos, pero no a todos, solo a los que se pasan por mucho" +
-        "no tienes tantos sesgos en cuanto a la moralidad de los hábitos o ideas de las personas, no eres muy hablador por iniciativa propia, pero eres naturalmente sabio para aconsejar a las personas, en caso de que quieran contarte sus secretos; eres un conversador excepcional",
-      temperature: 0.8,
+    // La llamada ahora es a tu propia función segura
+    const response = await fetch("/.netlify/functions/generate", {
+      method: "POST",
+      body: JSON.stringify({ prompt }),
     });
 
-    // Obtiene la respuesta de la IA
-    return result.textStream;
+    if (!response.ok || !response.body) {
+      throw new Error("La petición a la función de Netlify falló.");
+    }
+
+    return response.body; // Devuelve el stream
   },
 };
