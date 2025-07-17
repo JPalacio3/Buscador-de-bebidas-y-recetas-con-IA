@@ -1,28 +1,36 @@
-
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import Layout from "./layouts/Layout";
 import Spinner from "../public/spiner/Spinner";
-import PageTransition from "./layouts/PageTransition"; // 1. Importa el nuevo componente
+import PageTransition from "./layouts/PageTransition";
 
 const IndexPage = lazy(() => import("./views/IndexPage"));
 const FavoritesPage = lazy(() => import("./views/FavoritesPage"));
 const GenerateAI = lazy(() => import("./views/GenerateAI"));
 
+const routesOrder = ["/", "/favoritos", "/generate"];
+
 export default function AppRouter() {
   const location = useLocation();
 
+  const prevIndexRef = useRef(routesOrder.indexOf(location.pathname));
+
+  const currentIndex = routesOrder.indexOf(location.pathname);
+
+  const direction = currentIndex > prevIndexRef.current ? 1 : -1;
+
+  prevIndexRef.current = currentIndex;
+
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" custom={direction}>
       <Routes location={location} key={location.pathname}>
         <Route element={<Layout />}>
-          {/* 2. Envuelve cada página con PageTransition */}
           <Route
             path="/"
             element={
-              <PageTransition>
+              <PageTransition direction={direction}>
                 <Suspense fallback={<Spinner />}>
                   <IndexPage />
                 </Suspense>
@@ -32,7 +40,7 @@ export default function AppRouter() {
           <Route
             path="/favoritos"
             element={
-              <PageTransition>
+              <PageTransition direction={direction}>
                 <Suspense fallback={<Spinner />}>
                   <FavoritesPage />
                 </Suspense>
@@ -42,7 +50,7 @@ export default function AppRouter() {
           <Route
             path="/generate"
             element={
-              <PageTransition>
+              <PageTransition direction={direction}>
                 <Suspense fallback={<Spinner />}>
                   <GenerateAI />
                 </Suspense>

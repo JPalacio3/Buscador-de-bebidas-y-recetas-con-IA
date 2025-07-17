@@ -2,37 +2,43 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 const pageVariants = {
-  initial: {
+  initial: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
     opacity: 0,
-    x: "-100vw",
-  },
+  }),
+
   in: {
-    opacity: 1,
     x: 0,
+    opacity: 1,
   },
-  out: {
+
+  exit: (direction: number) => ({
+    x: direction > 0 ? "-100%" : "100%",
     opacity: 0,
-    x: "100vw",
-  },
+  }),
 };
 
-// Define la transición para que sea suave
 const pageTransition = {
   type: "tween",
-  ease: "anticipate",
+  ease: "easeInOut",
   duration: 0.3,
 } as const;
 
 type PageTransitionProps = {
   children: ReactNode;
+  direction: number;
 };
 
-export default function PageTransition({ children }: PageTransitionProps) {
+export default function PageTransition({
+  children,
+  direction,
+}: PageTransitionProps) {
   return (
     <motion.div
       initial="initial"
       animate="in"
-      exit="out"
+      exit="exit"
+      custom={direction}
       variants={pageVariants}
       transition={pageTransition}
     >
