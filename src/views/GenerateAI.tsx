@@ -3,6 +3,7 @@ import { useAppStore } from "../stores/useAppStore";
 export default function GenerateAI() {
   const Notification = useAppStore((state) => state.showNotification);
   const generateRecipe = useAppStore((state) => state.generateRecipe);
+  const recipe = useAppStore((state) => state.recipe);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -10,7 +11,7 @@ export default function GenerateAI() {
     const form = new FormData(e.currentTarget);
     const prompt = form.get("prompt") as string;
 
-    if (prompt.trim() === "" || prompt.trim().length < 10) {
+    if (prompt.trim() === "" || prompt.trim().length < 2) {
       // Notificación en caso de que el campo esté vacío
       Notification({
         text: "La busqueda no puede estar vacía o ser demasiado corta.",
@@ -60,8 +61,8 @@ export default function GenerateAI() {
             </button>
           </div>
         </form>
-
-        <div className="py-10 whitespace-pre-wrap"></div>
+        {/* Mostrando los resultados de la respuesta de la IA */}
+        <div className="py-10 whitespace-pre-wrap">{recipe}</div>
       </div>
     </>
   );

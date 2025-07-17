@@ -19,7 +19,7 @@ export default function AppRouter() {
 
   const currentIndex = routesOrder.indexOf(location.pathname);
 
-  const direction = currentIndex > prevIndexRef.current ? 1 : -1;
+  const direction = currentIndex >= prevIndexRef.current ? 1 : -1;
 
   prevIndexRef.current = currentIndex;
 
