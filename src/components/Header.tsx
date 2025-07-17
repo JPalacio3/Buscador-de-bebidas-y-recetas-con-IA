@@ -85,15 +85,18 @@ export default function Header() {
 
           {/* Navegation */}
           {isNavFixed && (
-            <div style={{ height: navHeight }} className="w-full" />
+            <div
+              style={{ height: navHeight }}
+              className="w-full hover:bg-slate-800"
+            />
           )}
           <nav
             ref={navRef}
             className={
               (isNavFixed
                 ? "fixed top-6 left-1/2 -translate-x-1/2 max-w-xl z-[9999] bg-slate-800/60 backdrop-blur p-2 gap-10 "
-                : "md:w-2/4 ") +
-              "flex flex-row justify-center min-w-32 px-20 gap-20 transition-opacity md:mx-10 "
+                : "md:w-3/4 w-full ") +
+              "flex flex-row justify-center min-w-64 px-10 gap-12 transition-opacity md:mx-10 "
             }
             style={isNavFixed ? { borderRadius: "20px" } : {}}
           >
@@ -124,8 +127,9 @@ export default function Header() {
               to="/generate"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 uppercase font-bold mb-0 lg:mb-0"
-                  : "text-white uppercase font-bold md:mb-0"
+                  ? "text-orange-500 uppercase font-bold mb-0 lg:mb-0 whitespace-nowrap"
+                  : "text-white uppercase font-bold md:mb-0" +
+                    "uppercase font-bold mb-0 lg:mb-0 whitespace-nowrap"
               }
             >
               Generar con IA
