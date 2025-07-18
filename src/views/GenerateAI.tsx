@@ -34,7 +34,12 @@ export default function GenerateAI() {
 
     setCurrentResponse(""); // Limpiar la respuesta actual
 
-    let response = (await generateRecipe(prompt)) as string;
+    // Limpiar el input inmediatamente después de enviar
+    if (e.currentTarget) {
+      e.currentTarget.reset();
+    }
+
+    let response = await generateRecipe(prompt);
     if (!response || typeof response !== "string") {
       response = "Error al generar la receta.";
     }
@@ -49,9 +54,6 @@ export default function GenerateAI() {
     localStorage.setItem("aiHistory", JSON.stringify(updatedHistory));
 
     setCurrentResponse(""); // Limpiar la respuesta actual después de guardar
-    if (e.currentTarget) {
-      e.currentTarget.reset();
-    }
   };
 
   // Formatea la respuesta de la IA para mejorar la visualización
@@ -59,7 +61,7 @@ export default function GenerateAI() {
     return text
       .replace(/####/g, "")
       .replace(/###/g, "")
-      .replace(/\*\*/g, "") // Opcional: quitar negritas markdown
+      .replace(/\*\*/g, "")
       .replace(/\\n/g, "");
   }
 

@@ -9,7 +9,7 @@ interface HttpError extends Error {
 
 export default {
   async generateRecipe(prompt: string): Promise<string> {
-    const maxRetries = 3;
+    const maxRetries = 2;
     let attempt = 0;
 
     while (attempt < maxRetries) {
