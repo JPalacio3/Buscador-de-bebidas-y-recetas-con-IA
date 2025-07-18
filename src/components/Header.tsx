@@ -132,7 +132,7 @@ export default function Header() {
                     "uppercase font-bold mb-0 lg:mb-0 whitespace-nowrap"
               }
             >
-              Generar con IA
+              BARMAN AI
             </NavLink>
           </nav>
         </div>
