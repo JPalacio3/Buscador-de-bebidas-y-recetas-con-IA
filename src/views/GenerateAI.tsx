@@ -114,7 +114,7 @@ export default function GenerateAI() {
         {/* Historial de recetas generadas */}
         <div className="space-y-1">
           {history.map((entry, index) => (
-            <div key={index} className="p-2 border rounded-lg bg-gray-200">
+            <div key={index} className="p-2 border rounded-lg bg-blue-100">
               <p className="text-right font-bold">Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
               <p className="text-left font-bold">BarIA:</p>
