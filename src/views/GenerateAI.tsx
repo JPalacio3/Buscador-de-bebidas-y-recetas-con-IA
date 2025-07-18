@@ -68,7 +68,7 @@ export default function GenerateAI() {
         {/* Inhabilitar el botón de generar respuesta mientras se genera una */}
         {isGenerating && (
           <div className="text-gray-300 animate-pulse m-5 p-0">
-            <Spinner />
+            <p>Generando receta...</p>
           </div>
         )}
 
