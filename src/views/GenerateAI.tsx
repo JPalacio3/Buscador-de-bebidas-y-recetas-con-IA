@@ -1,4 +1,3 @@
-import Spinner from "../../public/spiner/Spinner";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
