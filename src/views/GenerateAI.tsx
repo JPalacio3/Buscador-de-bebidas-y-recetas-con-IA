@@ -1,10 +1,22 @@
+import { useState, useEffect } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
   const Notification = useAppStore((state) => state.showNotification);
   const generateRecipe = useAppStore((state) => state.generateRecipe);
-  const recipe = useAppStore((state) => state.recipe);
   const isGenerating = useAppStore((state) => state.isGenerating);
+
+  const [history, setHistory] = useState<
+    { prompt: string; response: string }[]
+  >([]);
+  const [currentResponse, setCurrentResponse] = useState<string>("");
+
+  useEffect(() => {
+    const storedHistory = localStorage.getItem("aiHistory");
+    if (storedHistory) {
+      setHistory(JSON.parse(storedHistory));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,16 +25,31 @@ export default function GenerateAI() {
     const prompt = form.get("prompt") as string;
 
     if (prompt.trim() === "" || prompt.trim().length < 2) {
-      // Notificación en caso de que el campo esté vacío
       Notification({
-        text: "La busqueda no puede estar vacía o ser demasiado corta.",
+        text: "La búsqueda no puede estar vacía o ser demasiado corta.",
         error: true,
       });
       return;
     }
 
-    // En caso de que la búsqueda sea exitosa se realiza la busqueda del prompt y se renderiza el componente
-    await generateRecipe(prompt);
+    setCurrentResponse(""); // Limpiar la respuesta actual
+
+    const rawResponse = await generateRecipe(prompt);
+    const response =
+      typeof rawResponse === "string"
+        ? rawResponse
+        : "Límite de respuestas alcanzado.";
+    setCurrentResponse(response); // Mostrar la respuesta completa
+
+    const newEntry = { prompt, response };
+    const updatedHistory = [newEntry, ...history];
+    setHistory(updatedHistory);
+    localStorage.setItem("aiHistory", JSON.stringify(updatedHistory));
+
+    setCurrentResponse(""); // Limpiar la respuesta actual después de guardar
+    if (e.currentTarget) {
+      e.currentTarget.reset();
+    }
   };
 
   return (
@@ -71,8 +98,24 @@ export default function GenerateAI() {
           </div>
         )}
 
-        {/* Mostrando los resultados de la respuesta de la IA */}
-        <div className=" whitespace-pre-wrap container p-4 ">{recipe}</div>
+        {/* Historial de recetas generadas */}
+        <div className="space-y-4">
+          {history.map((entry, index) => (
+            <div key={index} className="p-4 border rounded-lg bg-gray-200">
+              <p className="text-right font-bold">Tú:</p>
+              <p className="text-right text-gray-700">{entry.prompt}</p>
+              <p className="text-left font-bold">BarIA:</p>
+              <p>{entry.response}</p>
+            </div>
+          ))}
+
+          {currentResponse && (
+            <div className="p-4 border rounded-lg bg-gray-100 animate-pulse">
+              <p className="text-left font-bold">BarIA:</p>
+              <p>{currentResponse}</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
