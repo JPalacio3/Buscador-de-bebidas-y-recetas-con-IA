@@ -30,6 +30,10 @@ export async function getRecipeById(id: Drink["idDrink"]) {
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { data } = await axios.get(url);
 
+  if (!data.drinks || !data.drinks[0]) {
+    throw new Error("No se encontró la receta para el ID proporcionado.");
+  }
+
   const result = RecipeAPIResponseSchema.safeParse(data.drinks[0]);
 
   if (result.success) {

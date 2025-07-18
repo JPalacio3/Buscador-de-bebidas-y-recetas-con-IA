@@ -9,6 +9,7 @@ export default {
       // model: openrouter('deepseek/deepseek-chat-v3-0324:free'),
       model: openrouter("google/gemma-3-4b-it:free"),
       prompt,
+      temperature: 0.7,
     });
 
     return result.textStream;
