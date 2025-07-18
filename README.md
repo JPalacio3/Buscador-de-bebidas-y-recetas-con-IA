@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/presentation.png" alt="Vista previa de la aplicación" width="600" />
+  <img src="public/presentation.webp" alt="Vista previa de la aplicación" width="600" />
 </p>
 
 # BarmanAI 🍸
