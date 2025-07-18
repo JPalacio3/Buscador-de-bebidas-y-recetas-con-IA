@@ -14,17 +14,15 @@ export default {
 
     while (attempt < maxRetries) {
       try {
-        const result = streamText({
+        const result = await streamText({
           // model: openrouter("meta-llama/llama-3.3-70b-instruct:free"),
           // model: openrouter('google/gemini-2.5-pro-exp-03-25:free'),
-          // model: openrouter("deepseek/deepseek-chat-v3-0324:free"),
+          model: openrouter("deepseek/deepseek-chat-v3-0324:free"),
           // model: openrouter("google/gemma-3-4b-it:free"),
-          model: openrouter("google/gemma-3-27b-it:free"),
+          // model: openrouter("google/gemma-3-27b-it:free"),
           prompt,
           temperature: 0.7,
         });
-
-        console.log("Resultado de streamText:", result);
 
         if (!result || !result.textStream) {
           return "Error al generar la receta.";
@@ -35,7 +33,12 @@ export default {
           response += chunk;
         }
 
-        return response as string; // Devolver el texto completo como un string
+        // Si la respuesta es vacía, devolver mensaje de error
+        if (!response.trim()) {
+          return "No se recibió respuesta de la IA.";
+        }
+
+        return response;
       } catch (error) {
         const httpError = error as HttpError;
         const isRateLimitError = httpError.response?.status === 429;

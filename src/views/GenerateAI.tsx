@@ -34,14 +34,16 @@ export default function GenerateAI() {
 
     setCurrentResponse(""); // Limpiar la respuesta actual
 
-    const rawResponse = await generateRecipe(prompt);
-    const response =
-      typeof rawResponse === "string"
-        ? rawResponse
-        : "Límite de respuestas alcanzado.";
+    let response = (await generateRecipe(prompt)) as string;
+    if (!response || typeof response !== "string") {
+      response = "Error al generar la receta.";
+    }
     setCurrentResponse(response); // Mostrar la respuesta completa
 
-    const newEntry = { prompt, response };
+    const newEntry = {
+      prompt,
+      response: response || "Error al generar la receta.",
+    };
     const updatedHistory = [newEntry, ...history];
     setHistory(updatedHistory);
     localStorage.setItem("aiHistory", JSON.stringify(updatedHistory));
