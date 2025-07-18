@@ -28,9 +28,6 @@ BarmanAI es una plataforma que permite a cualquier usuario generar recetas de be
 - **Estilos:** TailwindCSS
 - **Consumo de IA:** API de OpenRouter (modelos LLM)
 - **Persistencia:** localStorage para historial de recetas
-- **Vista previa:**
-
-  ![Vista previa](public/presentation.png)
 
 ## 📁 Estructura principal
 
