@@ -17,9 +17,10 @@ export default {
         const result = await streamText({
           // model: openrouter("meta-llama/llama-3.3-70b-instruct:free"),
           // model: openrouter('google/gemini-2.5-pro-exp-03-25:free'),
-          model: openrouter("deepseek/deepseek-chat-v3-0324:free"),
           // model: openrouter("google/gemma-3-4b-it:free"),
-          // model: openrouter("google/gemma-3-27b-it:free"),
+          model:
+            openrouter("deepseek/deepseek-chat-v3-0324:free") ||
+            openrouter("google/gemma-3-27b-it:free"),
           prompt,
           temperature: 0.7,
         });
