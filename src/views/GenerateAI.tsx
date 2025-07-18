@@ -93,15 +93,15 @@ export default function GenerateAI() {
         </form>
         {/* Inhabilitar el botón de generar respuesta mientras se genera una */}
         {isGenerating && (
-          <div className="text-gray-300 animate-pulse m-5 p-0">
+          <div className="text-gray-300 animate-pulse m-2 p-0">
             <p>Generando receta...</p>
           </div>
         )}
 
         {/* Historial de recetas generadas */}
-        <div className="space-y-4">
+        <div className="space-y-1">
           {history.map((entry, index) => (
-            <div key={index} className="p-4 border rounded-lg bg-gray-200">
+            <div key={index} className="p-2 border rounded-lg bg-gray-200">
               <p className="text-right font-bold">Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
               <p className="text-left font-bold">BarIA:</p>
@@ -110,7 +110,7 @@ export default function GenerateAI() {
           ))}
 
           {currentResponse && (
-            <div className="p-4 border rounded-lg bg-gray-100 animate-pulse">
+            <div className="p-2 border rounded-lg bg-gray-100 animate-pulse">
               <p className="text-left font-bold">BarIA:</p>
               <p>{currentResponse}</p>
             </div>
