@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="public/presentation.png" alt="Vista previa de la aplicación" width="600" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# BarmanAI 🍸
 
-Currently, two official plugins are available:
+Aplicación web para generar recetas y cócteles personalizados con Inteligencia Artificial.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 **Prueba la app en producción:** [https://barmanai.netlify.app/](https://barmanai.netlify.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Finalidad
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+BarmanAI es una plataforma que permite a cualquier usuario generar recetas de bebidas y cócteles personalizados usando IA. Solo tienes que escribir los ingredientes o el tipo de bebida que deseas, y la IA te sugerirá recetas creativas, pasos de preparación y alternativas.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🧠 ¿Por qué es especial?
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Utiliza modelos de IA para crear recetas únicas y adaptadas a tus gustos.
+- Puedes pedir recetas con ingredientes específicos, estilos, o pedir alternativas.
+- Guarda el historial de tus búsquedas y recetas generadas.
+- Interfaz tipo chat para una experiencia conversacional.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🏗️ Arquitectura
+
+- **Frontend:** React + TypeScript + Vite
+- **Estado global:** Zustand
+- **Estilos:** TailwindCSS
+- **Consumo de IA:** API de OpenRouter (modelos LLM)
+- **Persistencia:** localStorage para historial de recetas
+- **Vista previa:**
+
+  ![Vista previa](public/presentation.png)
+
+## 📁 Estructura principal
+
+- `src/views/GenerateAI.tsx`: Vista principal para interactuar con la IA.
+- `src/services/AIService.ts`: Lógica para consumir la API de IA.
+- `src/stores/aiSlice.ts`: Estado global y acciones de IA.
+- `public/presentation.png`: Imagen de la app en funcionamiento.
+
+## ✨ ¿Qué puedes hacer?
+
+- Generar recetas de cócteles y bebidas personalizadas.
+- Consultar el historial de recetas generadas.
+- Recibir sugerencias creativas y alternativas.
+
+---
+
+Desarrollado con ❤️ por JPalacio
