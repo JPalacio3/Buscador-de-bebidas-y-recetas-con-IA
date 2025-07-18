@@ -54,6 +54,15 @@ export default function GenerateAI() {
     }
   };
 
+  // Formatea la respuesta de la IA para mejorar la visualización
+  function formatAIResponse(text: string) {
+    return text
+      .replace(/####/g, "")
+      .replace(/###/g, "")
+      .replace(/\*\*/g, "") // Opcional: quitar negritas markdown
+      .replace(/\\n/g, "");
+  }
+
   return (
     <>
       <h1 className="text-center text-3xl xl:text-6xl font-extrabold">
@@ -107,14 +116,18 @@ export default function GenerateAI() {
               <p className="text-right font-bold">Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
               <p className="text-left font-bold">BarIA:</p>
-              <p>{entry.response}</p>
+              <p style={{ whiteSpace: "pre-line" }}>
+                {formatAIResponse(entry.response)}
+              </p>
             </div>
           ))}
 
           {currentResponse && (
             <div className="p-2 border rounded-lg bg-gray-100 animate-pulse">
               <p className="text-left font-bold">BarIA:</p>
-              <p>{currentResponse}</p>
+              <p style={{ whiteSpace: "pre-line" }}>
+                {formatAIResponse(currentResponse)}
+              </p>
             </div>
           )}
         </div>
