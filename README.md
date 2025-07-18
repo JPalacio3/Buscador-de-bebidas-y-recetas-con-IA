@@ -6,7 +6,7 @@
 
 Aplicación web para generar recetas y cócteles personalizados con Inteligencia Artificial.
 
-👉 **Prueba la app en producción:** [https://barmanai.netlify.app/](https://barmanai.netlify.app/)
+👉 **Prueba la app:** [https://barmanai.netlify.app/](https://barmanai.netlify.app/)
 
 ---
 
