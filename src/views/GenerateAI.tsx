@@ -164,9 +164,9 @@ export default function GenerateAI() {
               key={index}
               className="p-4 border rounded-lg bg-blue-100 shadow-sm"
             >
-              <p className="text-right font-bold">🔸 Tú:</p>
+              <p className="text-right font-bold">😋 Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
-              <p className="text-left font-bold mt-2">🔹 Barman AI:</p>
+              <p className="text-left font-bold mt-2">🤖 Barman AI:</p>
               <p style={{ whiteSpace: "pre-line" }}>
                 {formatAIResponse(entry.response)}
               </p>
