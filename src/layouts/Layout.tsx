@@ -5,6 +5,7 @@ import Notification from "../components/Notification";
 import { useEffect } from "react";
 import { useAppStore } from "../stores/useAppStore";
 import { useSwipeable } from "react-swipeable";
+import Footer from "../components/Footer";
 
 export default function Layout() {
   const loadFromStorage = useAppStore((state) => state.loadFromStorage);
@@ -39,15 +40,16 @@ export default function Layout() {
   });
 
   return (
-    <div {...handlers} className="min-h-screen bg-gray-100 ">
+    <div {...handlers} className="min-h-screen bg-gray-100 flex flex-col">
       <Header />
 
-      <main className="container mx-auto py-8">
+      <main className="container mx-auto py-8 flex-grow">
         <Outlet />
       </main>
 
       <Modal />
       <Notification />
+      <Footer />
     </div>
   );
 }
