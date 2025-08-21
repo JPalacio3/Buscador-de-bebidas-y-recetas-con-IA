@@ -1,8 +1,4 @@
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
-
-export const openrouter = createOpenRouter({
-  apiKey:
-    import.meta.env.VITE_OPENROUTER_KEY ||
-    import.meta.env.VITE_OPENROUTER_KEY2 ||
-    import.meta.env.VITE_OPENROUTER_KEY3,
-});
+// This file is no longer needed.
+// The OpenRouter client initialization has been removed for security.
+// All API calls are now handled by a secure Netlify serverless function
+// to protect the API keys.

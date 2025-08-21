@@ -19,22 +19,14 @@ export const createAISlice: StateCreator<
   generateRecipe: async (prompt) => {
     set({ recipe: "", isGenerating: true });
     try {
+      // The service now calls our secure backend
       const data = await AIService.generateRecipe(prompt);
       set({ recipe: data, isGenerating: false });
       return data;
     } catch (error: unknown) {
-      let errorMessage = "No se recibió respuesta de la IA.";
-      if (error instanceof Error) {
-        if (error.message.includes("429")) {
-          errorMessage =
-            "Has alcanzado el límite de solicitudes. Por favor, espera un momento antes de volver a intentarlo.";
-        }
-
-        if (error.message.includes("403")) {
-          errorMessage =
-            "Has alcanzado el límite de solicitudes. Por favor, regresa mañana.";
-        }
-      }
+      // The error message is now propagated from our backend service
+      const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+      
       get().showNotification({
         text: errorMessage,
         error: true,
