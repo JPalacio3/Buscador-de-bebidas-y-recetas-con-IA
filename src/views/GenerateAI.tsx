@@ -176,7 +176,7 @@ export default function GenerateAI() {
           {history.map((entry, index) => (
             <div
               key={index}
-              className="p-4 border-solid border-gray-200 rounded-lg bg-blue-100 shadow-lg"
+              className="p-4 border-solid rounded-lg bg-blue-100 shadow-lg"
             >
               <p className="text-right font-bold">😋 Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
