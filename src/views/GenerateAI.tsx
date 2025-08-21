@@ -9,7 +9,11 @@ export default function GenerateAI() {
   const [history, setHistory] = useState<
     { prompt: string; response: string }[]
   >([]);
-  const [currentResponse, setCurrentResponse] = useState<string>("");
+  const [streamingText, setStreamingText] = useState("");
+  const [currentStream, setCurrentStream] = useState<{
+    prompt: string;
+    response: string;
+  } | null>(null);
 
   useEffect(() => {
     const storedHistory = localStorage.getItem("aiHistory");
@@ -17,6 +21,33 @@ export default function GenerateAI() {
       setHistory(JSON.parse(storedHistory));
     }
   }, []);
+
+  useEffect(() => {
+    if (currentStream) {
+      setStreamingText(""); // Reset for new response
+      const responseText = currentStream.response;
+      let index = 0;
+      const intervalId = setInterval(() => {
+        if (index < responseText.length) {
+          setStreamingText((prev) => prev + responseText.charAt(index));
+          index++;
+        } else {
+          clearInterval(intervalId);
+          // Streaming finished, update history
+          const newEntry = {
+            prompt: currentStream.prompt,
+            response: currentStream.response,
+          };
+          const updatedHistory = [newEntry, ...history];
+          setHistory(updatedHistory);
+          localStorage.setItem("aiHistory", JSON.stringify(updatedHistory));
+          setCurrentStream(null); // Reset stream state
+        }
+      }, 25); // Typing speed
+
+      return () => clearInterval(intervalId);
+    }
+  }, [currentStream, history]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,8 +63,6 @@ export default function GenerateAI() {
       return;
     }
 
-    setCurrentResponse(""); // Limpiar la respuesta actual
-
     // Limpiar el input inmediatamente después de enviar
     if (e.currentTarget) {
       e.currentTarget.reset();
@@ -43,17 +72,7 @@ export default function GenerateAI() {
     if (!response || typeof response !== "string") {
       response = "Error al generar la receta.";
     }
-    setCurrentResponse(response); // Mostrar la respuesta completa
-
-    const newEntry = {
-      prompt,
-      response: response || "Error al generar la receta.",
-    };
-    const updatedHistory = [newEntry, ...history];
-    setHistory(updatedHistory);
-    localStorage.setItem("aiHistory", JSON.stringify(updatedHistory));
-
-    setCurrentResponse(""); // Limpiar la respuesta actual después de guardar
+    setCurrentStream({ prompt, response });
   };
 
   // Formatea la respuesta de la IA para mejorar la visualización
@@ -84,8 +103,12 @@ export default function GenerateAI() {
               type="submit"
               aria-label="Enviar"
               className={`cursor-pointer p-2 bg-slate-800 rounded-lg
-              ${isGenerating ? "cursor-not-allowed opacity-50" : ""}`}
-              disabled={isGenerating}
+              ${
+                isGenerating || currentStream
+                  ? "cursor-not-allowed opacity-50"
+                  : ""
+              }`}
+              disabled={isGenerating || !!currentStream}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,11 +147,14 @@ export default function GenerateAI() {
             </div>
           ))}
 
-          {currentResponse && (
-            <div className="p-2 border rounded-lg bg-gray-100 animate-pulse">
-              <p className="text-left font-bold">BarIA:</p>
+          {currentStream && (
+            <div className="p-2 border rounded-lg bg-blue-100">
+              <p className="text-right font-bold">🔸 Tú:</p>
+              <p className="text-right text-gray-700">{currentStream.prompt}</p>
+              <p className="text-left font-bold">🔹 Barman AI:</p>
               <p style={{ whiteSpace: "pre-line" }}>
-                {formatAIResponse(currentResponse)}
+                {formatAIResponse(streamingText)}
+                <span className="inline-block w-2 h-4 bg-slate-800 animate-pulse ml-1"></span>
               </p>
             </div>
           )}
