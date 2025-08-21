@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
@@ -14,6 +14,8 @@ export default function GenerateAI() {
     prompt: string;
     response: string;
   } | null>(null);
+
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const storedHistory = localStorage.getItem("aiHistory");
@@ -48,6 +50,13 @@ export default function GenerateAI() {
       return () => clearInterval(intervalId);
     }
   }, [currentStream, history]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [streamingText]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,36 +137,41 @@ export default function GenerateAI() {
           </div>
         </form>
         {/* Inhabilitar el botón de generar respuesta mientras se genera una */}
-        {isGenerating && (
+        {isGenerating && !currentStream && (
           <div className="text-gray-300 animate-pulse m-2 p-0">
             <p>Generando receta...</p>
           </div>
         )}
 
         {/* Historial de recetas generadas */}
-        <div className="space-y-1">
-          {history.map((entry, index) => (
-            <div key={index} className="p-2 border rounded-lg bg-blue-100">
-              <p className="text-right font-bold">🔸 Tú:</p>
-              <p className="text-right text-gray-700">{entry.prompt}</p>
-              <p className="text-left font-bold">🔹 Barman AI:</p>
-              <p style={{ whiteSpace: "pre-line" }}>
-                {formatAIResponse(entry.response)}
-              </p>
-            </div>
-          ))}
-
+        <div
+          ref={chatContainerRef}
+          className="space-y-4 max-h-[60vh] overflow-y-auto p-4 rounded-lg bg-white"
+        >
           {currentStream && (
-            <div className="p-2 border rounded-lg bg-blue-100">
+            <div className="p-4 border rounded-lg bg-blue-100 shadow-sm">
               <p className="text-right font-bold">🔸 Tú:</p>
               <p className="text-right text-gray-700">{currentStream.prompt}</p>
-              <p className="text-left font-bold">🔹 Barman AI:</p>
+              <p className="text-left font-bold mt-2">🔹 Barman AI:</p>
               <p style={{ whiteSpace: "pre-line" }}>
                 {formatAIResponse(streamingText)}
                 <span className="inline-block w-2 h-4 bg-slate-800 animate-pulse ml-1"></span>
               </p>
             </div>
           )}
+          {history.map((entry, index) => (
+            <div
+              key={index}
+              className="p-4 border rounded-lg bg-blue-100 shadow-sm"
+            >
+              <p className="text-right font-bold">🔸 Tú:</p>
+              <p className="text-right text-gray-700">{entry.prompt}</p>
+              <p className="text-left font-bold mt-2">🔹 Barman AI:</p>
+              <p style={{ whiteSpace: "pre-line" }}>
+                {formatAIResponse(entry.response)}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </>
