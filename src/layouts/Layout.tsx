@@ -8,6 +8,7 @@ import { useSwipeable } from "react-swipeable";
 
 export default function Layout() {
   const loadFromStorage = useAppStore((state) => state.loadFromStorage);
+  const modal = useAppStore((state) => state.modal);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,19 +20,22 @@ export default function Layout() {
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
+      if (modal) return;
       const currentIndex = routes.indexOf(location.pathname);
       if (currentIndex < routes.length - 1) {
         navigate(routes[currentIndex + 1]);
       }
     },
     onSwipedRight: () => {
+      if (modal) return;
       const currentIndex = routes.indexOf(location.pathname);
       if (currentIndex > 0) {
         navigate(routes[currentIndex - 1]);
       }
     },
     preventScrollOnSwipe: true,
-    trackMouse: true,
+    trackMouse: false,
+    delta: 50,
   });
 
   return (
