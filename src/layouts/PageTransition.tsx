@@ -5,16 +5,22 @@ const pageVariants = {
   initial: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
     opacity: 0,
+    position: "absolute",
+    width: "100%",
   }),
 
   in: {
     x: 0,
     opacity: 1,
+    position: "relative",
+    width: "100%",
   },
 
   exit: (direction: number) => ({
     x: direction > 0 ? "-100%" : "100%",
     opacity: 0,
+    position: "absolute",
+    width: "100%",
   }),
 };
 
