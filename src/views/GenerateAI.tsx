@@ -160,7 +160,7 @@ export default function GenerateAI() {
         {/* Historial de recetas generadas */}
         <div className="space-y-1 p-4 rounded-lg bg-blue-200">
           {currentStream && (
-            <div className="p-4 border rounded-lg bg-blue-100 shadow-sm">
+            <div className="p-4 border rounded-lg bg-blue-100 shadow-lg ">
               <p className="text-right font-bold">😋 Tú:</p>
               <p className="text-right text-gray-700">{currentStream.prompt}</p>
               <p className="text-left font-bold mt-2">🤖 Barman AI:</p>
