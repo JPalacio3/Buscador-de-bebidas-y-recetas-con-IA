@@ -29,6 +29,11 @@ export const createAISlice: StateCreator<
           errorMessage =
             "Has alcanzado el límite de solicitudes. Por favor, espera un momento antes de volver a intentarlo.";
         }
+
+        if (error.message.includes("403")) {
+          errorMessage =
+            "Has alcanzado el límite de solicitudes. Por favor, regresa mañana.";
+        }
       }
       get().showNotification({
         text: errorMessage,
