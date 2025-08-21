@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import Layout from "./layouts/Layout";
-import Spinner from "../public/spiner/Spinner";
+import Spinner from "./components/Spinner";
 import PageTransition from "./layouts/PageTransition";
 
 const IndexPage = lazy(() => import("./views/IndexPage"));
