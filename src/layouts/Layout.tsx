@@ -43,7 +43,7 @@ export default function Layout() {
     <div {...handlers} className="min-h-screen bg-gray-100 flex flex-col">
       <Header />
 
-      <main className="container mx-auto py-8 flex-grow">
+            <main className="container mx-auto py-8 flex-grow">
         <Outlet />
       </main>
 
