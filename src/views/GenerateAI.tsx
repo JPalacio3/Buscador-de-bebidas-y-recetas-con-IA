@@ -158,7 +158,7 @@ export default function GenerateAI() {
         )}
 
         {/* Historial de recetas generadas */}
-        <div className="space-y-1 p-4 rounded-lg bg-blue-100 ">
+        <div className="space-y-1 p-4 rounded-lg bg-blue-50 ">
           {currentStream && (
             <div className="p-4 border rounded-lg bg-blue-200 shadow-lg ">
               <p className="text-right font-bold">😋 Tú:</p>
@@ -176,7 +176,7 @@ export default function GenerateAI() {
           {history.map((entry, index) => (
             <div
               key={index}
-              className="p-4 border rounded-lg bg-blue-50 shadow-lg"
+              className="p-4 border rounded-lg bg-blue-100 shadow-lg"
             >
               <p className="text-right font-bold">😋 Tú:</p>
               <p className="text-right text-gray-700">{entry.prompt}</p>
