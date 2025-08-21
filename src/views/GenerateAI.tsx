@@ -158,7 +158,7 @@ export default function GenerateAI() {
         )}
 
         {/* Historial de recetas generadas */}
-        <div className="space-y-4 p-4 rounded-lg bg-white">
+        <div className="space-y-1 p-4 rounded-lg bg-white">
           {currentStream && (
             <div className="p-4 border rounded-lg bg-blue-100 shadow-sm">
               <p className="text-right font-bold">😋 Tú:</p>
