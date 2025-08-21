@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function GenerateAI() {
@@ -14,8 +14,6 @@ export default function GenerateAI() {
     prompt: string;
     response: string;
   } | null>(null);
-
-  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const storedHistory = localStorage.getItem("aiHistory");
@@ -52,9 +50,14 @@ export default function GenerateAI() {
   }, [currentStream, history]);
 
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+    // Auto-scroll only if user is near the bottom
+    const isAtBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+    if (isAtBottom) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [streamingText]);
 
@@ -144,10 +147,7 @@ export default function GenerateAI() {
         )}
 
         {/* Historial de recetas generadas */}
-        <div
-          ref={chatContainerRef}
-          className="space-y-4 max-h-[60vh] overflow-y-auto p-4 rounded-lg bg-white"
-        >
+        <div className="space-y-4 p-4 rounded-lg bg-white">
           {currentStream && (
             <div className="p-4 border rounded-lg bg-blue-100 shadow-sm">
               <p className="text-right font-bold">🔸 Tú:</p>
