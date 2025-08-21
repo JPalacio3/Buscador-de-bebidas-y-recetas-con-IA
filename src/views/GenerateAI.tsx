@@ -150,9 +150,9 @@ export default function GenerateAI() {
         <div className="space-y-4 p-4 rounded-lg bg-white">
           {currentStream && (
             <div className="p-4 border rounded-lg bg-blue-100 shadow-sm">
-              <p className="text-right font-bold">🔸 Tú:</p>
+              <p className="text-right font-bold">😋 Tú:</p>
               <p className="text-right text-gray-700">{currentStream.prompt}</p>
-              <p className="text-left font-bold mt-2">🔹 Barman AI:</p>
+              <p className="text-left font-bold mt-2">🤖 Barman AI:</p>
               <p style={{ whiteSpace: "pre-line" }}>
                 {formatAIResponse(streamingText)}
                 <span className="inline-block w-2 h-4 bg-slate-800 animate-pulse ml-1"></span>
