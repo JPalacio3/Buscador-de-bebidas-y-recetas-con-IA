@@ -4,7 +4,5 @@ export const openrouter = createOpenRouter({
   apiKey:
     import.meta.env.VITE_OPENROUTER_KEY ||
     import.meta.env.VITE_OPENROUTER_KEY2 ||
-    import.meta.env.VITE_OPENROUTER_KEY3 ||
-    import.meta.env.VITE_OPENROUTER_KEY4 ||
-    import.meta.env.VITE_OPENROUTER_KEY5,
+    import.meta.env.VITE_OPENROUTER_KEY3,
 });
