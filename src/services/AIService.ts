@@ -18,7 +18,8 @@ export default {
           model:
             openrouter("openai/gpt-oss-20b:free") ||
             openrouter("nvidia/llama-3.1-nemotron-ultra-253b-v1:free") ||
-            openrouter("tngtech/deepseek-r1t2-chimera:free"),
+            openrouter("tngtech/deepseek-r1t2-chimera:free") ||
+            openrouter("google/gemini-2.5-pro-exp-03-25"),
           prompt,
           temperature: 0.7,
         });
