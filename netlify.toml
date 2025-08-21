@@ -1,10 +1,12 @@
 # Configuración para Netlify
 
 [build]
-  command = "npm run build" # Comando para compilar el sitio para producción
-  publish = "dist"          # Directorio que se desplegará
+  command = "npm run build && cp public/_redirects.prod dist/_redirects"
+  publish = "dist"
 
 [dev]
-  command = "vite"          # Comando para iniciar el servidor de desarrollo de Vite
-  targetPort = 5173         # Puerto en el que Vite se ejecuta
-  port = 8888               # Puerto en el que Netlify Dev estará disponible
+  command = "vite"
+  targetPort = 5173
+  port = 8888
+  publish = "dist"
+  framework = "#static"
