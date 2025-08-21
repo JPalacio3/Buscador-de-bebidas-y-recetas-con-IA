@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
+const formatDate = (date: Date) => {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = date.toLocaleString("es-ES", { month: "short" });
+  const year = String(date.getFullYear()).slice(-2);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${day}/${month}/${year}, ${hours}:${minutes}`;
+};
+
 export default function GenerateAI() {
   const Notification = useAppStore((state) => state.showNotification);
   const generateRecipe = useAppStore((state) => state.generateRecipe);
   const isGenerating = useAppStore((state) => state.isGenerating);
 
   const [history, setHistory] = useState<
-    { prompt: string; response: string }[]
+    { prompt: string; response: string; date: string }[]
   >([]);
   const [streamingText, setStreamingText] = useState("");
   const [currentStream, setCurrentStream] = useState<{
     prompt: string;
     response: string;
+    date: string;
   } | null>(null);
 
   useEffect(() => {
@@ -37,6 +47,7 @@ export default function GenerateAI() {
           const newEntry = {
             prompt: currentStream.prompt,
             response: currentStream.response,
+            date: currentStream.date,
           };
           const updatedHistory = [newEntry, ...history];
           setHistory(updatedHistory);
@@ -84,7 +95,7 @@ export default function GenerateAI() {
     if (!response || typeof response !== "string") {
       response = "Error al generar la receta.";
     }
-    setCurrentStream({ prompt, response });
+    setCurrentStream({ prompt, response, date: formatDate(new Date()) });
   };
 
   // Formatea la respuesta de la IA para mejorar la visualización
@@ -157,6 +168,9 @@ export default function GenerateAI() {
                 {formatAIResponse(streamingText)}
                 <span className="inline-block w-2 h-4 bg-slate-800 animate-pulse ml-1"></span>
               </p>
+              <p className="text-xs text-gray-500 text-right mt-2">
+                {currentStream.date}
+              </p>
             </div>
           )}
           {history.map((entry, index) => (
@@ -169,6 +183,9 @@ export default function GenerateAI() {
               <p className="text-left font-bold mt-2">🤖 Barman AI:</p>
               <p style={{ whiteSpace: "pre-line" }}>
                 {formatAIResponse(entry.response)}
+              </p>
+              <p className="text-xs text-gray-500 text-right mt-2">
+                {entry.date}
               </p>
             </div>
           ))}
