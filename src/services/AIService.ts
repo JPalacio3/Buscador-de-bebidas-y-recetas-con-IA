@@ -15,12 +15,10 @@ export default {
     while (attempt < maxRetries) {
       try {
         const result = streamText({
-          // model: openrouter("meta-llama/llama-3.3-70b-instruct:free"),
-          // model: openrouter('google/gemini-2.5-pro-exp-03-25:free'),
-          // model: openrouter("google/gemma-3-4b-it:free"),
           model:
-            openrouter("deepseek/deepseek-chat-v3-0324:free") ||
-            openrouter("google/gemma-3-27b-it:free"),
+            openrouter("openai/gpt-oss-20b:free") ||
+            openrouter("nvidia/llama-3.1-nemotron-ultra-253b-v1:free") ||
+            openrouter("tngtech/deepseek-r1t2-chimera:free"),
           prompt,
           temperature: 0.7,
         });
